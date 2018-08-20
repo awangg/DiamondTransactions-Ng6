@@ -111,3 +111,37 @@ router.route('/api/signup')
       })
     })
   })
+
+/* Update Info */
+router.route('/api/updateinfo')
+  .post( function(req, res) {
+    User.findById(req.body._id, function(err, user) {
+      if(err) {
+        throw err
+      }
+      if(req.body.firstname.length > 0) user.firstname = req.body.firstname
+      if(req.body.lastname.length > 0) user.lastname = req.body.lastname
+      if(req.body.email.length > 0) user.email = req.body.email
+      if(req.body.address.length > 0) user.address = req.body.address
+      if(req.body.city.length > 0) user.city = req.body.city
+      if(req.body.state.length > 0) user.state = req.body.state
+      if(req.body.country.length > 0) user.country = req.body.country
+      if(user.zipcode !== null) user.zipcode = req.body.zip
+      user.save( function(err) {
+        if(err) {
+          throw err
+        }
+        res.json( {
+          _id: user._id,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          email: user.email,
+          address: user.address,
+          city: user.city,
+          state: user.state,
+          country: user.country,
+          zipcode: user.zipcode
+        })
+      })
+    })
+  })

@@ -1,3 +1,80 @@
-<p>
-  account works!
-</p>
+<ngb-tabset type="pills" class="nav-justified mt-2">
+  <ngb-tab title="Profile">
+    <ng-template ngbTabContent>
+      <hr />
+      <div class="tab-heading mt-2 text-center">
+        <h1 class="display-3"> Welcome Back, {{ capitalize(usrData.firstname) }} {{ capitalize(usrData.lastname) }} </h1>
+      </div>
+      <div class="list-group">
+        <div class="list-group-item mt-4" *ngFor="let obj of panels">
+          <h4 class="text-primary"> <a href={{obj.link}}> {{ obj.title }} </a> </h4>
+          <p> {{ obj.description }}
+        </div>
+        <div class="list-group-item mt-4">
+          <input type="submit" class="btn btn-outline-danger" value="Log Out" (click)="logout()" />
+          <p> Sign out of this account </p>
+        </div>
+      </div>
+      <div class="container mt-5 pb-5">
+        <h4> Your Information </h4>
+        <hr />
+        <form #f="ngForm" (ngSubmit)="sendUpdateRequest(f)">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="fn"> First Name </label>
+              <input type="text" class="form-control" id="fn" name="firstname" placeholder={{usrData.firstname}} ngModel />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="ln"> Last Name </label>
+              <input type="text" class="form-control" id="ln" name="lastname" placeholder={{usrData.lastname}} ngModel />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="eml"> Email Address </label>
+              <input type="email" class="form-control" id="eml" name="email" placeholder={{usrData.email}} ngModel />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="pwd"> Database ID </label>
+              <input type="password" class="form-control" id="pwd" name="_id" placeholder={{usrData._id}} ngModel disabled />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="adr"> Address </label>
+            <input type="text" class="form-control" id="adr" name="address" placeholder={{usrData.address}} ngModel />
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="cty"> City </label>
+              <input type="text" class="form-control" id="cty" name="city" placeholder={{usrData.city}} ngModel />
+            </div>
+            <div class="form-group col-md-2">
+              <label for="sta"> State </label>
+              <input type="text" class="form-control" id="sta" name="state" placeholder={{usrData.state}} ngModel />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="ctry"> Country </label>
+              <input type="text" class="form-control" id="ctry" name="country" placeholder={{usrData.country}} ngModel />
+            </div>
+            <div class="form-group col-md-2">
+              <label for="zip"> Zipcode </label>
+              <input type="text" class="form-control" id="zip" name="zipcode" placeholder={{usrData.zipcode}} ngModel />
+            </div>
+          </div>
+
+          <input type="submit" class="btn btn-block btn-lg btn-outline-primary" value="Update Information" />
+        </form>
+      </div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Orders">
+    <ng-template ngbTabContent>
+      <hr />
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Cart">
+    <ng-template ngbTabContent>
+      <hr />
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
