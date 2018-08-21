@@ -48,7 +48,8 @@ export class HomeComponent {
       'api/appendcart',
       {
         user_id: JSON.parse(sessionStorage.getItem('usrInfo'))._id,
-        product: product
+        product: product,
+        price: Math.floor(Math.random() * 1000) + 50
       }
     ).subscribe( (res: Response) => {
       console.log(res.json())

@@ -82,6 +82,12 @@
           <p> Quantity: {{ item.quantity }} </p>
         </div>
       </div>
+      <div class="text-center mt-5" *ngIf="cart.length > 0">
+        <h3> Subtotal: ${{ calculateSubtotal() | number:'1.2-2' }} </h3>
+        <h6> +Tax: ${{ calculateSubtotal() * .0625 | number:'1.2-2' }} </h6>
+        <h6> +Shipping: ${{ calculateSubtotal() * 1.0625 * .00575 | number:'1.2-2' }} </h6>
+        <h1> Total: ${{ calculateSubtotal() * 1.0625 * 1.00575 | number:'1.2-2' }} </h1>
+      </div>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>

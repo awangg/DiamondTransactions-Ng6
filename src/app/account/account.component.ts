@@ -78,4 +78,11 @@ export class AccountComponent {
     })
   }
 
+  calculateSubtotal(): number {
+    var sum = 0;
+    this.cart.forEach( function(item) {
+      sum += item.quantity * item.price;
+    })
+    return sum;
+  }
 }

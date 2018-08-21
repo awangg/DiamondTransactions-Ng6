@@ -151,6 +151,7 @@ var itemSchema = new Schema( {
   name: { type: String, trim: true },
   store_id: { type: String, trim: true },
   quantity: { type: Number, min: 1 },
+  price: { type: Number, min: 50 },
   user: { type: Schema.Types.ObjectId }
 })
 var Item = mongoose.model('item', itemSchema)
@@ -167,6 +168,7 @@ router.route('/api/appendcart')
           name: req.body.product.title,
           store_id: req.body.product.store_id,
           user: req.body.user_id,
+          price: req.body.price,
           quantity: 1
         })
         newItem.save( function(err) {
@@ -191,6 +193,7 @@ router.route('/api/appendcart')
     })
   })
 
+/* Get Cart Contents */
 router.route('/api/getcart')
   .post( function(req, res) {
     Item.find( { user: req.body.user_id }, function(err, items) {
@@ -206,6 +209,7 @@ router.route('/api/getcart')
     })
   })
 
+/* Remove from Cart */
 router.route('/api/removecart')
   .post( function(req, res) {
     Item.deleteOne( { user: req.body.user_id, _id: req.body.product._id }, function(err) {
@@ -217,3 +221,5 @@ router.route('/api/removecart')
       })
     })
   })
+
+/* Orders */
