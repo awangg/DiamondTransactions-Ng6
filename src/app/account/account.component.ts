@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 
 @Component({
   selector: 'app-account',
