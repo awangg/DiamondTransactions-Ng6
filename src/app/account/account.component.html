@@ -70,6 +70,22 @@
   <ngb-tab title="Orders">
     <ng-template ngbTabContent>
       <hr />
+      <div class="list-group">
+        <div class="list-group-item mt-4" *ngFor="let order of orders">
+          <h4 class="text-primary"> Order Id: {{ order._id }} </h4>
+          <p>
+            Placed: {{ order.placement | date: mediumDate }} <br />
+            <strong> Arriving: {{ order.arrival | date: mediumDate }} </strong>
+          </p>
+          Contents:
+          <ul>
+            <li *ngFor="let item of order.items">
+              [{{item.quantity}}] {{ item.name }}<small style="font-size: 8px;">{{ item.store_id }}</small> @ ${{ item.price | number:'1.2-2' }} each
+            </li>
+          </ul>
+          <span style="position: absolute; top: 5px; right: 8px;"> <h1> ${{ order.price | number:'1.2-2' }} </h1> </span>
+        </div>
+      </div>
     </ng-template>
   </ngb-tab>
   <ngb-tab title="Cart">
@@ -87,6 +103,9 @@
         <h6> +Tax: ${{ calculateSubtotal() * .0625 | number:'1.2-2' }} </h6>
         <h6> +Shipping: ${{ calculateSubtotal() * 1.0625 * .00575 | number:'1.2-2' }} </h6>
         <h1> Total: ${{ calculateSubtotal() * 1.0625 * 1.00575 | number:'1.2-2' }} </h1>
+      </div>
+      <div class="container mt-5" *ngIf="cart.length > 0">
+        <button class="btn btn-lg btn-outline-danger btn-block" (click)="sendCheckoutRequest()"> Checkout </button>
       </div>
     </ng-template>
   </ngb-tab>

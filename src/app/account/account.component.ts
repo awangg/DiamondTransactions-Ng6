@@ -11,6 +11,7 @@ export class AccountComponent {
   usrData: any;
   panels: any;
   cart: any;
+  orders: any;
 
   constructor(private http: Http, private router: Router) {
     this.usrData = JSON.parse(sessionStorage.getItem('usrInfo'));
@@ -19,6 +20,7 @@ export class AccountComponent {
       { title: "Return Home", link: "https://www.diamonddiagnostics.com/en/default.asp", description: "Return to the main site"}
     ];
     this.getCartRequest();
+    this.getOrdersRequest();
   }
 
   capitalize(phrase: string): string {
@@ -60,7 +62,6 @@ export class AccountComponent {
       }
     ).subscribe( (res: Response) => {
       _this.cart = res.json();
-      console.log(_this.cart);
     })
   }
 
@@ -84,5 +85,33 @@ export class AccountComponent {
       sum += item.quantity * item.price;
     })
     return sum;
+  }
+
+  sendCheckoutRequest(): void {
+    var _this = this;
+    this.http.post(
+      '/api/addorder',
+      {
+        user_id: this.usrData._id,
+        cart: this.cart,
+        price: this.calculateSubtotal() * 1.0625 * 1.00575
+      }
+    ).subscribe( (res: Response) => {
+      _this.cart = [];
+      _this.getOrdersRequest();
+    })
+  }
+
+  getOrdersRequest(): void {
+    var _this = this;
+    this.http.post(
+      '/api/getorders',
+      {
+        user_id: this.usrData._id
+      }
+    ).subscribe( (res: Response) => {
+      _this.orders = res.json().reverse();
+      console.log(_this.orders)
+    })
   }
 }

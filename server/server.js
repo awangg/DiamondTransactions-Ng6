@@ -200,7 +200,6 @@ router.route('/api/getcart')
       if(err) {
         throw err
       }
-
       var ret = [];
       items.forEach( function(item) {
         ret.push(item)
@@ -223,3 +222,52 @@ router.route('/api/removecart')
   })
 
 /* Orders */
+var orderSchema = new Schema( {
+  user: { type: Schema.Types.ObjectId },
+  price: { type: Number, min: 50 },
+  placement: { type: Date, default: Date.now },
+  arrival: { type: Date, default: +new Date() + 7*24*60*60*1000 },
+  items: { type: [itemSchema] }
+})
+var Order = mongoose.model('order', orderSchema)
+
+/* Make Order */
+router.route('/api/addorder')
+  .post( function(req, res) {
+    var newOrder = new Order( {
+      user: req.body.user_id,
+      price: req.body.price,
+      items: req.body.cart
+    })
+
+    newOrder.save( function(err) {
+      if(err) {
+        throw err
+      }
+    })
+
+    Item.deleteMany( { user: req.body.user_id }, function(err) {
+      if(err) {
+        throw err
+      }
+    })
+
+    res.json( {
+      message: 'Success'
+    })
+  })
+
+/* Get Orders */
+router.route('/api/getorders')
+  .post( function(req, res) {
+    Order.find( { user: req.body.user_id }, function(err, orders) {
+      if(err) {
+        throw err
+      }
+      var ret = []
+      orders.forEach( function(order) {
+        ret.push(order)
+      })
+      res.json(ret)
+    })
+  })
