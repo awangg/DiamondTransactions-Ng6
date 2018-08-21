@@ -83,7 +83,7 @@
               [{{item.quantity}}] {{ item.name }}<small style="font-size: 8px;">{{ item.store_id }}</small> @ ${{ item.price | number:'1.2-2' }} each
             </li>
           </ul>
-          <span style="position: absolute; top: 5px; right: 8px;"> <h1> ${{ order.price | number:'1.2-2' }} </h1> </span>
+          <span style="position: absolute; top: 5px; right: 8px; color: #ffaa2b;"> <h1> ${{ order.price | number:'1.2-2' }} </h1> </span>
         </div>
       </div>
     </ng-template>
@@ -96,6 +96,7 @@
           <span class="x-button-container"> <button class="x-button" (click)="sendCartRemoveRequest(item)"> <i class="fa fa-times"></i> </button> </span>
           <h4 class="text-primary"> {{ item.name }} <small style="font-size: 10px; color: #000;"> {{ item.store_id }} </small> </h4>
           <p> Quantity: {{ item.quantity }} </p>
+          <span style="position: absolute; top: 5px; right: 8px; color: #ffaa2b;"> <h2> ${{ item.price * item.quantity | number:'1.2-2' }} </h2> </span>
         </div>
       </div>
       <div class="text-center mt-5" *ngIf="cart.length > 0">

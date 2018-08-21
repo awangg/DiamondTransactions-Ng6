@@ -126,7 +126,7 @@ router.route('/api/updateinfo')
       if(req.body.city.length > 0) user.city = req.body.city
       if(req.body.state.length > 0) user.state = req.body.state
       if(req.body.country.length > 0) user.country = req.body.country
-      if(user.zipcode !== null) user.zipcode = req.body.zip
+      if(req.body.zipcode !== null) user.zipcode = req.body.zipcode
       user.save( function(err) {
         if(err) {
           throw err
