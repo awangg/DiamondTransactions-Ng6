@@ -4,12 +4,14 @@
     <ng-template ngbTabContent>
       <hr />
       <div class="row">
-        <div class="col mr-1 ml-1 text-center product-box" *ngFor="let product of obj.content">
-          <img src={{product.img_id}} class="product-img" alt={{product.title.toLowerCase()}} />
-          <h4> {{ product.title }} </h4>
+        <div class="col-md-4 mb-5 text-center product-box" *ngFor="let product of obj.content">
+          <hr />
+          <img src={{product.img_src}} class="product-img" alt={{product.name.toLowerCase()}} />
+          <h5> {{ product.name }} </h5>
           <small> {{ product.store_id }} </small>
           <br />
           <button class="btn btn-success mt-2 mb-2" *ngIf="loggedIn" (click)="sendCartRequest(product)"> Add to Cart </button>
+          <hr />
         </div>
       </div>
     </ng-template>

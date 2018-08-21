@@ -165,7 +165,7 @@ router.route('/api/appendcart')
       }
       if(item === null) {
         var newItem = new Item( {
-          name: req.body.product.title,
+          name: req.body.product.name,
           store_id: req.body.product.store_id,
           user: req.body.user_id,
           price: req.body.price,
