@@ -10,6 +10,6 @@ export class AppComponent {
   title = 'transaction-page-ng6';
 
   isLoggedIn(): boolean {
-    return sessionStorage.getItem('usrInfo');
+    return sessionStorage.getItem('usrInfo') !== null;
   }
 }
