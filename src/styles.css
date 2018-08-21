@@ -7,7 +7,7 @@ body {
   position: relative;
   object-fit: contain;
   width: 100%;
-  height: 400px;
+  height: 250px;
 }
 
 .product-box:hover {
