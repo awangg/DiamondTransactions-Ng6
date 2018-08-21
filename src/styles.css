@@ -31,3 +31,18 @@ body {
   outline: none;
   color: #f00;
 }
+
+.btn-primary {
+  background-color: #393;
+}
+
+.nav-link,
+h4.text-primary,
+.text-primary a {
+  color: #393 !important;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #393;
+  color: #fff !important;
+}
