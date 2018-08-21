@@ -1,1 +1,15 @@
-<h1> Home </h1>
+<ngb-tabset type="pills" class="nav-justified mt-2">
+  <ngb-tab *ngFor="let obj of products">
+    <ng-template ngbTabTitle> {{ obj.title }} </ng-template>
+    <ng-template ngbTabContent>
+      <hr />
+      <div class="row">
+        <div class="col mr-1 ml-1 text-center product-box" *ngFor="let product of obj.content">
+          <img src={{product.img_id}} class="product-img" alt={{product.title.toLowerCase()}} />
+          <h4> {{ product.title }} </h4>
+          <small> {{ product.store_id }} </small>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

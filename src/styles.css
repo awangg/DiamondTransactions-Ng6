@@ -2,3 +2,14 @@ body {
   margin-bottom: 5rem;
   overflow-y: scroll;
 }
+
+.product-img {
+  position: relative;
+  object-fit: contain;
+  width: 100%;
+}
+
+.product-box:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 1s;
+}
