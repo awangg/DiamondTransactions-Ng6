@@ -8,6 +8,8 @@
           <img src={{product.img_id}} class="product-img" alt={{product.title.toLowerCase()}} />
           <h4> {{ product.title }} </h4>
           <small> {{ product.store_id }} </small>
+          <br />
+          <button class="btn btn-success mt-2 mb-2" *ngIf="loggedIn" (click)="sendCartRequest(product)"> Add to Cart </button>
         </div>
       </div>
     </ng-template>

@@ -145,3 +145,48 @@ router.route('/api/updateinfo')
       })
     })
   })
+
+/* Item */
+var itemSchema = new Schema( {
+  name: { type: String, trim: true },
+  store_id: { type: String, trim: true },
+  quantity: { type: Number, min: 1 },
+  user: { type: Schema.Types.ObjectId }
+})
+var Item = mongoose.model('item', itemSchema)
+
+/* Add to Cart */
+router.route('/api/appendcart')
+  .post( function(req, res) {
+    Item.findOne( { user: req.body.user_id, store_id: req.body.product.store_id }, function(err, item) {
+      if(err) {
+        throw err
+      }
+      if(item === null) {
+        var newItem = new Item( {
+          name: req.body.product.title,
+          store_id: req.body.product.store_id,
+          user: req.body.user_id,
+          quantity: 1
+        })
+        newItem.save( function(err) {
+          if(err) {
+            throw err
+          }
+          res.json( {
+            message: 'Success'
+          })
+        })
+      }else {
+        item.quantity += 1
+        item.save( function(err) {
+          if(err) {
+            throw err
+          }
+          res.json( {
+            message: 'Success'
+          })
+        })
+      }
+    })
+  })

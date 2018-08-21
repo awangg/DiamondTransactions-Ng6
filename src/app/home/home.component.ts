@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { Http, Response } from '@angular/http';
+
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   products: any;
+  loggedIn: boolean;
 
-  constructor() {
+  constructor(private appComponent: AppComponent, private http: Http) {
     var newAnalyzers = [
       { title: "Diamond Smartlyte", store_id: "#DD0000", img_id: "https://www.diamonddiagnostics.com/store/uploads/productImg/Diamond-Smartlyte-312326.jpg?v=undefined" },
       { title: "Diamond Carelyte", store_id: "#DD0001", img_id: "https://www.diamonddiagnostics.com/store/uploads/productImg/Diamond-Carelyte-756391.jpg?v=undefined" },
@@ -21,7 +25,7 @@ export class HomeComponent implements OnInit {
     ];
     var parts = [
       { title: "Assembly For Siemens Analyzers", store_id: "#DD0006", img_id: "https://www.diamonddiagnostics.com/store/uploads/productImg/Mixer-Rod-For-Siemens-Analyzers-431974.jpg?v=undefined" },
-      { title: "PCB For Radiometer Analyzers", store_id: "#DD0007", img_id: "https://www.diamonddiagnostics.com/store/uploads/productImg/PCB-For-Radiometer-642418.jpg?v=undefined" },
+      { title: "UI Module For Radiometer Analyzers", store_id: "#DD0007", img_id: "https://www.diamonddiagnostics.com/store/uploads/productImg/PCB-For-Radiometer-642418.jpg?v=undefined" },
       { title: "Barcode Scanner For Roche Analyzers", store_id: "#DD0008", img_id: "https://www.diamonddiagnostics.com/store/uploads/productImg/Clamp-For-Roche-Analyzers-554944.jpg?v=undefined" },
     ];
     var consumables = [
@@ -36,9 +40,18 @@ export class HomeComponent implements OnInit {
       { title: "Parts on Demand", content: parts },
       { title: "Consumables", content: consumables }
     ];
+    this.loggedIn = appComponent.isLoggedIn();
   }
 
-  ngOnInit() {
+  sendCartRequest(product: any): void {
+    this.http.post(
+      'api/appendcart',
+      {
+        user_id: JSON.parse(sessionStorage.getItem('usrInfo'))._id,
+        product: product
+      }
+    ).subscribe( (res: Response) => {
+      console.log(res.json())
+    })
   }
-
 }
