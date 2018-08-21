@@ -190,3 +190,30 @@ router.route('/api/appendcart')
       }
     })
   })
+
+router.route('/api/getcart')
+  .post( function(req, res) {
+    Item.find( { user: req.body.user_id }, function(err, items) {
+      if(err) {
+        throw err
+      }
+
+      var ret = [];
+      items.forEach( function(item) {
+        ret.push(item)
+      })
+      res.json(ret)
+    })
+  })
+
+router.route('/api/removecart')
+  .post( function(req, res) {
+    Item.deleteOne( { user: req.body.user_id, _id: req.body.product._id }, function(err) {
+      if(err) {
+        throw err
+      }
+      res.json( {
+        message: 'Success'
+      })
+    })
+  })

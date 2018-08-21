@@ -13,3 +13,21 @@ body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transition: 1s;
 }
+
+.x-button-container {
+  position: absolute;
+  z-index: 1;
+  top: 1px;
+  left: 1px;
+  color: #f00;
+}
+
+.x-button {
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  color: #f00;
+}

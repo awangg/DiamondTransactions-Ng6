@@ -75,6 +75,13 @@
   <ngb-tab title="Cart">
     <ng-template ngbTabContent>
       <hr />
+      <div class="list-group">
+        <div class="list-group-item mt-4" *ngFor="let item of cart">
+          <span class="x-button-container"> <button class="x-button" (click)="sendCartRemoveRequest(item)"> <i class="fa fa-times"></i> </button> </span>
+          <h4 class="text-primary"> {{ item.name }} <small style="font-size: 10px; color: #000;"> {{ item.store_id }} </small> </h4>
+          <p> Quantity: {{ item.quantity }} </p>
+        </div>
+      </div>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>

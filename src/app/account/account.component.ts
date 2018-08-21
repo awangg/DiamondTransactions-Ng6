@@ -10,6 +10,7 @@ import { Http, Response } from '@angular/http';
 export class AccountComponent {
   usrData: any;
   panels: any;
+  cart: any;
 
   constructor(private http: Http, private router: Router) {
     this.usrData = JSON.parse(sessionStorage.getItem('usrInfo'));
@@ -17,6 +18,7 @@ export class AccountComponent {
       { title: "Visit the Store", link: "/home", description: "Browse our selection of products"},
       { title: "Return Home", link: "https://www.diamonddiagnostics.com/en/default.asp", description: "Return to the main site"}
     ];
+    this.getCartRequest();
   }
 
   capitalize(phrase: string): string {
@@ -46,6 +48,33 @@ export class AccountComponent {
     ).subscribe( (res: Response) => {
       sessionStorage.setItem('usrInfo', JSON.stringify(res.json()));
       location.reload();
+    })
+  }
+
+  getCartRequest(): void {
+    var _this = this;
+    this.http.post(
+      '/api/getcart',
+      {
+        user_id: this.usrData._id
+      }
+    ).subscribe( (res: Response) => {
+      _this.cart = res.json();
+      console.log(_this.cart);
+    })
+  }
+
+  sendCartRemoveRequest(product: any): void {
+    var _this = this;
+    this.http.post(
+      '/api/removecart',
+      {
+        user_id: this.usrData._id,
+        product: product
+      }
+    ).subscribe( (res: Response) => {
+      var index = _this.cart.indexOf(product);
+      _this.cart.splice(index, 1);
     })
   }
 
